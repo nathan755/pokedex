@@ -3,10 +3,10 @@ useEffect(() => {
       console.log(resonse.data.results);
      console.log(searchQuery);
    });
-  }, [searchQuery]);
+  }, []);
 
 
-
+  const { stats, types, weight } = response.data;
 
  // i think i need to set some variables == to some api endpoints
   // also i think we need to useEffet() and put in the square brackets [searchQuery], because if use effect will be called once same as componentDidMount!!fuy
@@ -26,3 +26,12 @@ useEffect(() => {
     //}
 
     //above all bullshit
+
+    //.then(response => {
+     // setData(response.data);
+     // console.log(response.data);
+   // })
+   // .catch(error => {
+     // console.log(error);
+   // }
+

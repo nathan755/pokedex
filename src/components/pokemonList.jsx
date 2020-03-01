@@ -6,8 +6,8 @@ function PokemonList(props) {
 
   return (
     <div>
-      {props.pokemonData.map(pokemon => {
-        return <Pokemon name={pokemon.name} url={pokemon.url} />;
+      {props.pokemonData.map((pokemon, i) => {
+        return <Pokemon name={pokemon.name} url={pokemon.url} key={i} />;
       })}
     </div>
   );
