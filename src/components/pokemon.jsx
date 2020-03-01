@@ -18,8 +18,10 @@ function Pokemon(props) {
     hp
   ] = stats;
 
-  console.log(speed.stat[name])
-
+  console.log(speed)
+  console.log(speed.base_stat)
+  console.log(speed.stat.name) //<--------- wtf 
+ 
   //console.log(height);
   //console.log(weight);
   //console.log(stats);
