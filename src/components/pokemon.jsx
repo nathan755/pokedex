@@ -9,30 +9,21 @@ function Pokemon(props) {
 
   const { height, weight, stats = "", sprites = "", types = "" } = data;
 
-  const [
-    speed = "",
-    specialDefense,
-    specialAttack,
-    defense,
-    attack,
-    hp
-  ] = stats;
-
-  console.log(speed)
-  console.log(speed.base_stat)
-  console.log(speed.stat.name) //<--------- wtf 
- 
-  //console.log(height);
-  //console.log(weight);
-  //console.log(stats);
-  //console.log(sprites);
-  // console.log(types);
-  // console.log(height);
+  const [speed="", specialDefense="", specialAttack="", defense="", attack="", hp=""] = stats;
+  //WHY CANT I JUST SAY -- speed.stat.name? i can say speed.base_stat and i can say speed.effort so why cant i say speed.stat.name
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const { base_stat: speedStat, stat: speedName="" } = speed;                                           //
+  const { base_stat: specialDefenseStat, stat: specialDefenseName="" } = specialDefense;                //
+  const { base_stat: specialAttackStat, stat: specialAttackName="" } = specialAttack;                   // // <----- what a load of trash!!
+  const { base_stat: defenseStat, stat: defenseName="" } = defense;                                     //
+  const { base_stat: attackStat, stat: attackName="" } = attack;                                         //
+  const { base_stat: hpStat, stat: hpName="" } = hp;                                                     // 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+console.log(types.slot)
 
   useEffect(() => {
     getPokeData();
-    //runs when component initailly mounts, similar to componentDidMount()
-    //should i make the api request onClick or when the component mounts? who knows both work...
   }, []);
 
   async function getPokeData() {
