@@ -4,74 +4,58 @@ import axios from "axios";
 function Pokemon(props) {
   /**props.pokemonData = array of objects [{name:"pokemon", url:"endpoint to get specific pokemon data"}...] */
 
-  const [statsAreVisable, setStatsAreVisable] = useState(false); // make toggle stats function instead..
   const [data, setData] = useState({});
-
-  const { height, weight, stats = "", sprites = "", types = "" } = data;
-
-  const [speed="", specialDefense="", specialAttack="", defense="", attack="", hp=""] = stats;
-  //WHY CANT I JUST SAY -- speed.stat.name? i can say speed.base_stat and i can say speed.effort so why cant i say speed.stat.name
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const { base_stat: speedStat, stat: speedName="" } = speed;                                           //
-  const { base_stat: specialDefenseStat, stat: specialDefenseName="" } = specialDefense;                //
-  const { base_stat: specialAttackStat, stat: specialAttackName="" } = specialAttack;                   // // <----- what a load of trash!!
-  const { base_stat: defenseStat, stat: defenseName="" } = defense;                                     //
-  const { base_stat: attackStat, stat: attackName="" } = attack;                                         //
-  const { base_stat: hpStat, stat: hpName="" } = hp;                                                     // 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
-console.log(types.slot)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPokeData();
+    axios.get(props.url).then(response => {
+      setData(response.data);
+      console.log(response.data);
+      setLoading(false);
+    });
   }, []);
 
-  async function getPokeData() {
-    const response = await axios.get(props.url);
-    setData(response.data);
+  if (!loading) {
+    //is this stupid? i thought it would be better having nice variable names for each stat rather than saying data.stats[0].base_stat etc in the jsx below.
+    var [speed, specialDefense, specialAttack, defense, attack] = data.stats;
+    console.log(data.types[0].type.name)
   }
 
-  function toggleStats() {
-    setStatsAreVisable(false);
-  }
+  const getImage = data => {
+    if (loading) {
+      return <h1>loading image.....</h1>;
+    } else {
+      return <img src={data.sprites.front_default}></img>;
+    }
+  };
 
   return (
     <div>
       <div>
-        <h2></h2>
-        <h2></h2>
-      </div>
-      <img></img>
-      <div>
-        <h3></h3>
-        <h3>pokemon height</h3>
+        <h2>{props.name}</h2>
       </div>
       <div>
-        <ul>
-          <li>attack=</li>
-          <li>defense=</li>
-          <li>special attack=</li>
-          <li>special defense=</li>
-          <li>speed=</li>
-        </ul>
-      </div>
-      <div>
-        <button>show stats</button>
-        <button>hide stats</button>
+        {loading ? (
+          <h3>loading....</h3>
+        ) : (
+          <div>
+          <img src={data.sprites.front_default}></img>
+            <ul>
+              <li>height={data.height}</li>
+              <li>wight={data.weight}</li>
+              {data.types.map((typeStat => { return <h2>{typeStat.type.name}</h2>}))}
+              <li>attack={attack.base_stat}</li>
+              <li>defense={defense.base_stat}</li>
+              <li>special attack={specialAttack.base_stat}</li>
+              <li>special defense={specialDefense.base_stat}</li>
+              <li>speed={speed.base_stat}</li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 export default Pokemon;
-
-// 1. create function to make api request on click of show stats.
-// 2. create some state to determine if show stats is tru/false.
-// 3. show stats/hide stats button
-// 4. make a pretty looking card with the necessery stats
-// !!!! use the conditional rendering crap to display the stats is it ??
-// maybe do some array destructuring on the data we are sent as props/...
-// <h2>{props.name}</h2>
-//<p>{props.url}</p>
-//// I THINK HAVIGN TWO FUNTICIONS TO SHOW/HIDE STATS IS DUMB. MAYBE HAVE A TOGGLE STATS FUNCTION AND THEN USE SIMPLE IF STATEMRTNS TO CHECK WHAT TO SHOW..
-//async ??
+//console.log(response.data.stats[0].stat.name)
