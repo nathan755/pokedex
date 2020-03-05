@@ -6,11 +6,11 @@ function Pokemon(props) {
 
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [statsVisable, setStatsVisable] = useState(false);
 
   useEffect(() => {
-    axios.get(props.url).then(response => {
+    axios.get(props.url).then(response => { /////make request hewre to get stats...
       setData(response.data);
-      console.log(response.data);
       setLoading(false);
     });
   }, []);
@@ -18,44 +18,50 @@ function Pokemon(props) {
   if (!loading) {
     //is this stupid? i thought it would be better having nice variable names for each stat rather than saying data.stats[0].base_stat etc in the jsx below.
     var [speed, specialDefense, specialAttack, defense, attack] = data.stats;
-    console.log(data.types[0].type.name)
+   
   }
 
-  const getImage = data => {
-    if (loading) {
-      return <h1>loading image.....</h1>;
+  const statsToggler = () => {
+    if (statsVisable) {
+      setStatsVisable(false);
     } else {
-      return <img src={data.sprites.front_default}></img>;
+      setStatsVisable(true);
     }
   };
 
   return (
     <div>
-      <div>
+      <div onClick={statsToggler}>
         <h2>{props.name}</h2>
       </div>
-      <div>
-        {loading ? (
-          <h3>loading....</h3>
-        ) : (
-          <div>
-          <img src={data.sprites.front_default}></img>
-            <ul>
-              <li>height={data.height}</li>
-              <li>wight={data.weight}</li>
-              {data.types.map((typeStat => { return <h2>{typeStat.type.name}</h2>}))}
-              <li>attack={attack.base_stat}</li>
-              <li>defense={defense.base_stat}</li>
-              <li>special attack={specialAttack.base_stat}</li>
-              <li>special defense={specialDefense.base_stat}</li>
-              <li>speed={speed.base_stat}</li>
-            </ul>
-          </div>
-        )}
-      </div>
+
+      {statsVisable && (
+        <div id="pokemon-card">
+          <button onClick={statsToggler}>hide stats</button>
+          {loading ? (
+            <h3>loading....this will be a spinner</h3>
+          ) : (
+            <div>
+              <img src={data.sprites.front_default}></img>
+              <ul>
+                <li>height={data.height}</li>
+                <li>wight={data.weight}</li>
+                {data.types.map(typeStat => {
+                  return <h2>{typeStat.type.name}</h2>;
+                })}
+                <li>attack={attack.base_stat}</li>
+                <li>defense={defense.base_stat}</li>
+                <li>special attack={specialAttack.base_stat}</li>
+                <li>special defense={specialDefense.base_stat}</li>
+                <li>speed={speed.base_stat}</li>
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
 export default Pokemon;
-//console.log(response.data.stats[0].stat.name)
+

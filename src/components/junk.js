@@ -1,9 +1,4 @@
-useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon").then(resonse => {
-      console.log(resonse.data.results);
-     console.log(searchQuery);
-   });
-  }, []);
+
 
 
   const { stats, types, weight } = response.data;
