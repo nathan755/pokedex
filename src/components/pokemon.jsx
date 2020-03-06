@@ -2,26 +2,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Pokemon(props) {
-  /**props.pokemonData = array of objects [{name:"pokemon", url:"endpoint to get specific pokemon data"}...] */
-
+  const [dataURL, setDataURL] = useState();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [statsVisable, setStatsVisable] = useState(false);
 
   useEffect(() => {
-    axios.get(props.url).then(response => { /////make request hewre to get stats...
+    axios.get(props.url).then(response => {
+      setDataURL("https://pokeapi.co/api/v2/pokemon/" + response.data.id);
+    });
+  }, [props.url]);
+
+  const statsToggler = () => {
+    axios.get(dataURL).then(response => {
       setData(response.data);
       setLoading(false);
     });
-  }, []);
 
-  if (!loading) {
-    //is this stupid? i thought it would be better having nice variable names for each stat rather than saying data.stats[0].base_stat etc in the jsx below.
-    var [speed, specialDefense, specialAttack, defense, attack] = data.stats;
-   
-  }
-
-  const statsToggler = () => {
     if (statsVisable) {
       setStatsVisable(false);
     } else {
@@ -29,8 +26,13 @@ function Pokemon(props) {
     }
   };
 
+  if (!loading) {
+    //is this stupid? i thought it would be better having nice variable names for each stat rather than saying data.stats[0].base_stat etc in the jsx below.
+    var [speed, specialDefense, specialAttack, defense, attack] = data.stats;
+  }
+
   return (
-    <div>
+    <div className="container">
       <div onClick={statsToggler}>
         <h2>{props.name}</h2>
       </div>
@@ -64,4 +66,3 @@ function Pokemon(props) {
 }
 
 export default Pokemon;
-
