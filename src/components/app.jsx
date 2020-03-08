@@ -6,27 +6,32 @@ import PokemonList from "./pokemonList";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("generation/1");
-  
 
   useEffect(() => {
-    //runs when component initailly mounts, similar to componentDidMount() and the runs every time the state searchQuery changes.
-    axios.get("https://pokeapi.co/api/v2/" + searchQuery).then(response => {
-     
-        setPokemonList(response.data.pokemon_species);
-        
-     
+    //runs when component initailly mounts, similar to componentDidMount().
+    axios.get("https://pokeapi.co/api/v2/pokemon").then(response => {
+      setPokemonList(response.data.results);
+      console.log("mounted");
     });
-  }, [searchQuery]);
+  }, []);
 
   function generationFilter(event) {
-    // make axios request here and set the pokemon list to the desired thing..
-    setSearchQuery("generation/" +event.target.value);
+    axios
+      .get("https://pokeapi.co/api/v2/generation/" + event.target.value)
+      .then(response => {
+        setPokemonList(response.data.pokemon_species);
+      });
   }
 
   function typeFilter(event) {
-    // and here
-    setSearchQuery("type/" + event.target.value);
+    axios
+      .get("https://pokeapi.co/api/v2/type/" + event.target.value)
+      .then(response => {
+        let pokeData = response.data.pokemon.map(pokemon => {
+          return pokemon.pokemon;
+        });
+        setPokemonList(pokeData);
+      });
   }
 
   return (

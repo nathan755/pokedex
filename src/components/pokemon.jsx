@@ -48,7 +48,7 @@ function Pokemon(props) {
         <div>
           <button onClick={statsToggler}>hide stats</button>
           {loading ? (
-            <i class="fas fa-spinner fa-spin"></i>
+            <i className="fas fa-spinner fa-spin"></i>
           ) : (
             <div>
               <img src={data.sprites.front_default}></img>
