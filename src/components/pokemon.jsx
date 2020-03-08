@@ -32,16 +32,35 @@ function Pokemon(props) {
   }
 
   return (
-    <div className="container">
-      <div onClick={statsToggler}>
-        <h2>{props.name}</h2>
-      </div>
+    <div className="card" >
+      {!statsVisable && (
+        <div className="card-body" >
+        <img onClick={statsToggler} className="card-img-top" src="images/pokeball.png"></img>
+        <p class="card-text">{props.name}</p>
+        </div>
+      )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
 
       {statsVisable && (
-        <div id="pokemon-card">
+        <div>
           <button onClick={statsToggler}>hide stats</button>
           {loading ? (
-            <h3>loading....this will be a spinner</h3>
+            <i class="fas fa-spinner fa-spin"></i>
           ) : (
             <div>
               <img src={data.sprites.front_default}></img>

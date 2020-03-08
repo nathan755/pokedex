@@ -20,7 +20,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="wrapper">
       <DropDown
         label="Filter Pokemon by Generation"
         handleChange={handleDropDownChange}
