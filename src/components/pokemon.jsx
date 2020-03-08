@@ -32,29 +32,17 @@ function Pokemon(props) {
   }
 
   return (
-    <div className="card" >
+    <div className="card">
       {!statsVisable && (
-        <div className="card-body" >
-        <img onClick={statsToggler} className="card-img-top" src="images/pokeball.png"></img>
-        <p class="card-text">{props.name}</p>
+        <div className="card-body">
+          <img
+            onClick={statsToggler}
+            className="card-img-top"
+            src="images/pokeball.png"
+          ></img>
+          <p className="card-text">{props.name}</p>
         </div>
       )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
 
       {statsVisable && (
         <div>

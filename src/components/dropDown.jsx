@@ -5,7 +5,7 @@ function DropDown(props) {
     <div>
       <label>{props.label}</label>
 
-      <select onChange = {props.handleChange} value={props.value}>
+      <select onChange = {props.handleChange}  >
        {props.children}
       </select>
     </div>
