@@ -2,21 +2,5 @@ body {
    background-color: #f4f4f4;
 }
 
-h2 {
-    font-size: 2em;
-}
 
-.wrapper{
-    text-align: center;
-    background-color: burlywood;
-    height: 200px;
-    width: 200px;
-}
 
-img {
-    height: 100px;
-}
-
-.pokemon-card {
-    display: inline-block;
-}

@@ -11,7 +11,7 @@ function App() {
     //runs when component initailly mounts, similar to componentDidMount().
     axios.get("https://pokeapi.co/api/v2/pokemon").then(response => {
       setPokemonList(response.data.results);
-      console.log("mounted");
+      
     });
   }, []);
 
@@ -35,7 +35,7 @@ function App() {
   }
 
   return (
-    <div className="wrapper">
+    <div>
       <DropDown
         label="Filter Pokemon by Generation"
         handleChange={generationFilter}
@@ -48,6 +48,7 @@ function App() {
         <option value="6">Generation VI</option>
         <option value="7"> Generation VII</option>
       </DropDown>
+
       <DropDown label="Filter Pokemon by Type" handleChange={typeFilter}>
         <option value="normal">Normal</option>
         <option value="fighting">Fighting </option>
@@ -71,7 +72,11 @@ function App() {
         <option value="unknown"> Unknown</option>
       </DropDown>
 
-      <PokemonList pokemonData={pokemonList} />
+      <div className="container">
+        <div className="row">
+          <PokemonList pokemonData={pokemonList} />
+        </div>
+      </div>
     </div>
   );
 }
