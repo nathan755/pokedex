@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import pokeball from "../images/pokeball.png"
+
 
 function Pokemon(props) {
   const [dataURL, setDataURL] = useState();
@@ -52,6 +54,7 @@ function Pokemon(props) {
 
   if (!loading) {
     //is this stupid? i thought it would be better having nice variable names for each stat rather than saying data.stats[0].base_stat etc in the jsx below.
+   
     var [speed, specialDefense, specialAttack, defense, attack, hp] = data.stats;
     
   }
@@ -64,7 +67,7 @@ function Pokemon(props) {
             <img
               onClick={statsToggler}
               className="card-img-top text-center"
-              src="images/pokeball.png"
+              src={pokeball}
             ></img>
             <h3 className="card-text text-center">{props.name}</h3>
            

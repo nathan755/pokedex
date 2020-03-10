@@ -40,7 +40,8 @@ function App() {
   }
 
   return (
-    //i think how im putting value in each of those options is wrong. somthing about single source of rtruth. if i put the value as state it doesnt work.. im sure its wrong but it works 
+    //i think how im putting value in each of those options is wrong. somthing about single source of rtruth. 
+    //if i put the value as state it doesnt work.. im sure its wrong but it works 
     <div>
       <DropDown
         label="Filter Pokemon by Generation"
