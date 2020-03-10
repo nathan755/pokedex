@@ -9,11 +9,14 @@ function App() {
 
   useEffect(() => {
     //runs when component initailly mounts, similar to componentDidMount().
+    //sets deefault list of pokemon to the original gen 1s
     axios.get("https://pokeapi.co/api/v2/pokemon").then(response => {
       setPokemonList(response.data.results);
-      
     });
   }, []);
+
+  // set pokeList to [{name:pokemons name, url:endpoing to get pokemons stats etc..}] ----> the pokelist component only works if i send it data like this.
+  // functions below needed because in order the generation
 
   function generationFilter(event) {
     axios
@@ -28,6 +31,8 @@ function App() {
       .get("https://pokeapi.co/api/v2/type/" + event.target.value)
       .then(response => {
         let pokeData = response.data.pokemon.map(pokemon => {
+          // this crap is needed because i wanted a list like
+          //[{name:pokemons name, url:endpoing to get pokemons stats etc..}] but the response.data.pokemon was nested differnetly to the generation
           return pokemon.pokemon;
         });
         setPokemonList(pokeData);
@@ -35,6 +40,7 @@ function App() {
   }
 
   return (
+    //i think how im putting value in each of those options is wrong. somthing about single source of rtruth. if i put the value as state it doesnt work.. im sure its wrong but it works 
     <div>
       <DropDown
         label="Filter Pokemon by Generation"
@@ -70,6 +76,7 @@ function App() {
         <option value="fairy">Fairy</option>
         <option value="shadow">Shadow</option>
         <option value="unknown"> Unknown</option>
+        
       </DropDown>
 
       <div className="container">

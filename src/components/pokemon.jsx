@@ -48,11 +48,12 @@ function Pokemon(props) {
     }
   };
 
-  const makeTypeBadges = typeColours => {};
+  
 
   if (!loading) {
     //is this stupid? i thought it would be better having nice variable names for each stat rather than saying data.stats[0].base_stat etc in the jsx below.
-    var [speed, specialDefense, specialAttack, defense, attack] = data.stats;
+    var [speed, specialDefense, specialAttack, defense, attack, hp] = data.stats;
+    
   }
 
   return (
@@ -66,32 +67,26 @@ function Pokemon(props) {
               src="images/pokeball.png"
             ></img>
             <h3 className="card-text text-center">{props.name}</h3>
+           
           </div>
         )}
 
         {statsVisable && (
           <div className="">
-            <h3 className="card-text">{props.name}</h3>
+            <h2 className="card-text">{props.name}</h2>
+            <h3>HP: {!loading && hp.base_stat}</h3>
             <hr />
             <button onClick={statsToggler}>hide stats</button>
             {loading ? (
               <i className="fas fa-spinner fa-spin"></i>
             ) : (
-              <div>
+              <div className="text-center">
                 <img className="w-100" src={data.sprites.front_default}></img>
-                <hr />
-                <ul>
-                  <li>height={data.height}</li>
-                  <li>wight={data.weight}</li>
-
-                  <li>attack={attack.base_stat}</li>
-                  <li>defense={defense.base_stat}</li>
-                  <li>special attack={specialAttack.base_stat}</li>
-                  <li>special defense={specialDefense.base_stat}</li>
-                  <li>speed={speed.base_stat}</li>
-                </ul>
+           
                 {data.types.map(typeStat => {
                   return (
+
+                    
                     <span
                       className="badge m-1"
                       style={{
@@ -102,6 +97,19 @@ function Pokemon(props) {
                     </span>
                   ); //make an object with the colours and use the typestat to acsess the colours..
                 })}
+                <hr />
+                <ul style={{listStyle:"none"}}>
+                  <li>Height: {data.height}</li>
+                  <li>Weight: {data.weight}</li>
+
+                  <li>Attack: {attack.base_stat}</li>
+                  <li>Defense: {defense.base_stat}</li>
+                  <li>Special attack: {specialAttack.base_stat}</li>
+                  <li>Special Defense: {specialDefense.base_stat}</li>
+                  <li>Speed: {speed.base_stat}</li>
+                 
+                </ul>
+              
               </div>
             )}
           </div>
